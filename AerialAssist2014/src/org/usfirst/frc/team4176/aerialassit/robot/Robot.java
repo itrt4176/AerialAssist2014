@@ -51,7 +51,6 @@ public class Robot extends SampleRobot {
     public boolean lbPressed = false;
     public boolean rbPressed = false;
     public boolean armUp = false;
-    public boolean speedScale = false;
     
 
     Joystick xboxCntrlr = new Joystick(1); //Xbox Controller is a considered joystick. Right joystick on actual controller is axis 3 and 4
@@ -91,40 +90,36 @@ public class Robot extends SampleRobot {
 
        while(isOperatorControl() && isEnabled()) {
            SmartDashboard.putString("Version", "2015_1.0_alpha1");
-           double controlX = xboxCntrlr.getRawAxis(1);
-           double controlY = xboxCntrlr.getRawAxis(2);
-           double control2X = xboxCntrlr.getRawAxis(4);
-           double control2Y = xboxCntrlr.getRawAxis(5);
+           double leftX = xboxCntrlr.getRawAxis(1);
+           double leftY = xboxCntrlr.getRawAxis(2);
+           double rightX = xboxCntrlr.getRawAxis(4);
+           double rightY = xboxCntrlr.getRawAxis(5);
            double controlTriggers = xboxCntrlr.getRawAxis(3);
            
            //Dead zone
-           if (controlX < .18 && controlX > -.18) {
-               controlX = 0;
-               speedScale = true;
+           if (leftX < .18 && leftX > -.18) {
+               leftX = 0;
            }
            
-           if (controlY < .18 && controlY > -.18) {
-               controlY = 0;
+           if (leftY < .18 && leftY > -.18) {
+               leftY = 0;
            }
            
-           if (control2X < .18 && control2X > -.18) {
-               control2X = 0;
+           if (rightX < .18 && rightX > -.18) {
+               rightX = 0;
            }
            
-           if (control2Y < .18 && control2Y > -.18) {
-               control2Y = 0;
+           if (rightY < .18 && rightY > -.18) {
+               rightY = 0;
            }
-           setSensitivity(controlX, controlY, control2X, control2Y, sensitivity);
            
-           forkliftControl(controlTriggers);
+           SmartDashboard.putNumber("X Axis", leftX);
+           SmartDashboard.putNumber("Y Axis", leftY);
+           SmartDashboard.putNumber("X Axis 2", rightX);
+           SmartDashboard.putNumber("Y Axis 2", rightY);
 
-           
-           SmartDashboard.putNumber("X Axis", controlX);
-           SmartDashboard.putNumber("Y Axis", controlY);
-           SmartDashboard.putNumber("X Axis 2", control2X);
-           SmartDashboard.putNumber("Y Axis 2", control2Y);
-
-           drive.mecanumDrive_Cartesian(motorX, motorY, motor2X, 0); //Mecanum wheels are controlled by joystick 1: X and Y, and joystick 2: Y
+           drive.mecanumDrive_Cartesian(leftX, leftY, rightX, 0); //Mecanum wheels are controlled by joystick 1: X and Y, and joystick 2: Y
+           forkLift.set(0.1 * controlTriggers);
           
 
            //Timer.delay(0.005);
@@ -163,8 +158,4 @@ public class Robot extends SampleRobot {
        motor2X = control2X;
        motor2Y = control2Y;
    }
-    
-    public void forkliftControl(double controlTriggers){
-    	forkLift.set(0.1 * controlTriggers);
-    }
 }
