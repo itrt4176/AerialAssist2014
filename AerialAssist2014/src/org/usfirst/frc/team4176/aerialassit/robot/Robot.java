@@ -55,11 +55,11 @@ public class Robot extends SampleRobot {
     
 
     Joystick xboxCntrlr = new Joystick(1); //Xbox Controller is a considered joystick. Right joystick on actual controller is axis 3 and 4
-    Talon frontLeft = new Talon(1); //Talon is a motor controller
-    Talon frontRight = new Talon(5);
-    Talon rearLeft = new Talon(3);
-    Talon rearRight = new Talon(4);
-    Talon forkLift = new Talon(2);
+    Talon frontLeft = new Talon(2); //Talon is a motor controller
+    Talon frontRight = new Talon(3);
+    Talon rearLeft = new Talon(5);
+    Talon rearRight = new Talon(1);
+    Talon forkLift = new Talon(4);
     RobotDrive drive = new RobotDrive(frontLeft, rearLeft, frontRight, rearRight); //This tells the robot how to drive the motors
     
     DriverStation ds = DriverStation.getInstance();
