@@ -12,16 +12,13 @@
 package org.usfirst.frc.team4176.aerialassit.robot;
 
 
-import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.SampleRobot;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.RobotDrive;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.DriverStation;
-import java.lang.Math;
 
 //A=button 1
 //B=button 2
@@ -58,23 +55,12 @@ public class Robot extends SampleRobot {
     
 
     Joystick xboxCntrlr = new Joystick(1); //Xbox Controller is a considered joystick. Right joystick on actual controller is axis 3 and 4
-    Joystick xboxCntrlr2 = new Joystick(2);
     Talon frontLeft = new Talon(1); //Talon is a motor controller
-    Talon frontRight = new Talon(2);
+    Talon frontRight = new Talon(5);
     Talon rearLeft = new Talon(3);
     Talon rearRight = new Talon(4);
-    Talon pulleyLeft = new Talon(5);
-    Talon pulleyRight = new Talon(6);
-    Talon doorLeft = new Talon(7);
-    Talon doorRight = new Talon(8);
-    DigitalInput topLeft = new DigitalInput(13); //Sensors
-    DigitalInput topRight = new DigitalInput(14); //
-    DigitalInput botLeft = new DigitalInput(11); //
-    DigitalInput botRight = new DigitalInput(12); //End sensors
+    Talon forkLift = new Talon(2);
     RobotDrive drive = new RobotDrive(frontLeft, rearLeft, frontRight, rearRight); //This tells the robot how to drive the motors
-    
-    public boolean leftInTransit = botLeft.get() && topLeft.get() || topLeft.get() == false; //leftInTransit is true if neither left sensor is triggered
-    public boolean rightInTransit = botRight.get() && topRight.get() || topRight.get() == false; //rightInTransit is true in neither right sensor is triggered
     
     DriverStation ds = DriverStation.getInstance();
     
@@ -104,26 +90,12 @@ public class Robot extends SampleRobot {
     public void operatorControl() {
 
        while(isOperatorControl() && isEnabled()) {
-           SmartDashboard.putString("Version", "Competiton2.0");
-           SmartDashboard.putBoolean("Top Left Sensor", topLeft.get());
-           SmartDashboard.putBoolean("Bottom Left Sensor", botLeft.get());
-           SmartDashboard.putBoolean("Top Right Sensor", topRight.get());
-           SmartDashboard.putBoolean("Bottom Right Sensor", botRight.get());
+           SmartDashboard.putString("Version", "2015_1.0_alpha1");
            double controlX = xboxCntrlr.getRawAxis(1);
            double controlY = xboxCntrlr.getRawAxis(2);
-          //Xbox:
            double control2X = xboxCntrlr.getRawAxis(4);
            double control2Y = xboxCntrlr.getRawAxis(5);
-           
-           //Gamecube:
-//           double control2X = xboxCntrlr.getRawAxis(4);
-//           double control2Y = xboxCntrlr.getRawAxis(5);
-           double control3Y = xboxCntrlr2.getRawAxis(2);
-           double control4Y = xboxCntrlr2.getRawAxis(5);
-           boolean rightTrue = false;
-           boolean leftTrue = false;
-           
-           //setSenseLevel();
+           double controlTriggers = xboxCntrlr.getRawAxis(3);
            
            //Dead zone
            if (controlX < .18 && controlX > -.18) {
@@ -143,20 +115,17 @@ public class Robot extends SampleRobot {
                control2Y = 0;
            }
            setSensitivity(controlX, controlY, control2X, control2Y, sensitivity);
+           
+           forkliftControl(controlTriggers);
 
            
            SmartDashboard.putNumber("X Axis", controlX);
            SmartDashboard.putNumber("Y Axis", controlY);
            SmartDashboard.putNumber("X Axis 2", control2X);
            SmartDashboard.putNumber("Y Axis 2", control2Y);
-           SmartDashboard.putNumber("X Out", motorX);
-           SmartDashboard.putNumber("Y Out", motorY);
-           SmartDashboard.putNumber("X Out 2", motorX);
-           SmartDashboard.putNumber("Y Out 2", motor2Y);
 
            drive.mecanumDrive_Cartesian(motorX, motorY, motor2X, 0); //Mecanum wheels are controlled by joystick 1: X and Y, and joystick 2: Y
-           
-           doorControl(.8 * control3Y, .8 * control4Y);
+          
 
            //Timer.delay(0.005);
        }
@@ -194,10 +163,8 @@ public class Robot extends SampleRobot {
        motor2X = control2X;
        motor2Y = control2Y;
    }
-   
-    public void doorControl(double control3Y, double control4Y) {
-               doorLeft.set(-control3Y);
-        
-               doorRight.set(-control4Y);
+    
+    public void forkliftControl(double controlTriggers){
+    	forkLift.set(controlTriggers);
     }
 }
