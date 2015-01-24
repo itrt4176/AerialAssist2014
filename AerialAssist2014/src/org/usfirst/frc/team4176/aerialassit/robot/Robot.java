@@ -85,7 +85,7 @@ public class Robot extends SampleRobot {
      */
     public void autonomous() {
         
-        if(ds.getDigitalIn(1))
+/*        if(ds.getDigitalIn(1))
         {
             Timer timer1517 = new Timer();
             timer1517.start();
@@ -95,7 +95,7 @@ public class Robot extends SampleRobot {
             }
             drive.tankDrive(0, 0);
             timer1517.stop();
-        }
+        }*/
     }   
 
     /**
