@@ -165,6 +165,6 @@ public class Robot extends SampleRobot {
    }
     
     public void forkliftControl(double controlTriggers){
-    	forkLift.set(controlTriggers);
+    	forkLift.set(0.1 * controlTriggers);
     }
 }
