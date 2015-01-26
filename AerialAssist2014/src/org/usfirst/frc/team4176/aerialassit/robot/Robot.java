@@ -84,18 +84,7 @@ public class Robot extends SampleRobot {
      * This function is called once each time the robot enters autonomous mode.
      */
     public void autonomous() {
-        
-        if(ds.getDigitalIn(1))
-        {
-            Timer timer1517 = new Timer();
-            timer1517.start();
-            while(timer1517.get() < 5.0)
-            {
-                drive.mecanumDrive_Cartesian(0, -0.45, 0, 0);
-            }
-            drive.tankDrive(0, 0);
-            timer1517.stop();
-        }
+
     }   
 
     /**
