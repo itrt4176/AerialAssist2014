@@ -178,10 +178,23 @@ public class Robot extends SampleRobot {
      * This function is called to apply the sensitivity level to the controller
      */
     public void setSensitivity(double controlX, double controlY, double control2X, double control2Y, int sensitivity) { //Applies a level of sensitivty to joystick output
-       motorX = controlX;
-       motorY = controlY;
-       motor2X = control2X;
-       motor2Y = control2Y;
+    	boolean halfSpeed = false;
+    	if(xboxCntrlr.getRawButton(8)){
+    		halfSpeed = !halfSpeed;
+    	}
+    	if(halfSpeed == false){
+    		motorX = controlX;
+    	    motorY = controlY;
+    	    motor2X = control2X;
+    	    motor2Y = control2Y;
+    	}
+    	if(halfSpeed){
+    		motorX = 0.5 * controlX;
+    	    motorY = 0.5 * controlY;
+    	    motor2X = 0.5 * control2X;
+    	    motor2Y = 0.5 * control2Y;
+    	}
+       
    }
    
     public void doorControl(double control3Y, double control4Y) {
