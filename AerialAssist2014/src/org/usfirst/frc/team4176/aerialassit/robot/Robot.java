@@ -187,13 +187,19 @@ public class Robot extends SampleRobot {
        if(xboxCntrlr.getRawButton(5)){
     	motorX= 0.5 * controlX;
        }
-    }
-    if(xboxCntrlr.getRawButton(5)==false){
-    	 then(controlY=controlY)
-   
-    public void doorControl(double control3Y, double control4Y) {
+    
+    if(xboxCntrlr.getRawButton(5)==true){
+    	 then(motorX=controlX);}
+    	 }
+    private void then(double d) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+
+	public void doorControl(double control3Y, double control4Y) {
                doorLeft.set(-control3Y);
         
                doorRight.set(-control4Y);
     }
-}
