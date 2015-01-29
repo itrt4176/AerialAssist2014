@@ -184,32 +184,23 @@ public class Robot extends SampleRobot {
      */
     public void setSensitivity(double controlX, double controlY, double control2X, double control2Y, int sensitivity) { //Applies a level of sensitivty to joystick output
     	Boolean halfSpeed = false;
-    	Boolean fullSpeed = true;
     	if (halfSpeed = true); {
     		motorX = controlX * .5;
     		motorY = controlY * .5;
     		motor2X = control2X * .5;
     		motor2Y = control2Y * .5;
     	}
-    	if (fullSpeed = true); {
+    	if (halfSpeed = false); {
     		motorX = controlX;
     		motorY = controlY;
     		motor2X = control2X;
     		motor2Y = control2Y;
-    	if (fullSpeed = false); {
-    		fullSpeed = !fullSpeed; }
-    	if (halfSpeed = false); {
-    		halfSpeed = !halfSpeed; }	
+    	}	
     	if (xboxCntrlr.getRawButton(1) == true); {
-    		halfSpeed = true; }
-    	if (xboxCntrlr.getRawButton(2) == true); {
-    		fullSpeed = true; }
-    	if (xboxCntrlr.getRawButton(1) == false); {
     		halfSpeed = !halfSpeed; }
-    	if (xboxCntrlr.getRawButton(2) == false); {
-    		fullSpeed = !fullSpeed; }
+    	
     	}
-    }
+    
     	
     	
     	
