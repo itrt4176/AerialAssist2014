@@ -85,17 +85,6 @@ public class Robot extends SampleRobot {
      */
     public void autonomous() {
         
-        if(ds.getDigitalIn(1))
-        {
-            Timer timer1517 = new Timer();
-            timer1517.start();
-            while(timer1517.get() < 5.0)
-            {
-                drive.mecanumDrive_Cartesian(0, -0.45, 0, 0);
-            }
-            drive.tankDrive(0, 0);
-            timer1517.stop();
-        }
     }   
 
     /**
@@ -189,10 +178,23 @@ public class Robot extends SampleRobot {
      * This function is called to apply the sensitivity level to the controller
      */
     public void setSensitivity(double controlX, double controlY, double control2X, double control2Y, int sensitivity) { //Applies a level of sensitivty to joystick output
-       motorX = controlX;
-       motorY = controlY;
-       motor2X = control2X;
-       motor2Y = control2Y;
+    	boolean halfSpeed = false;
+    	if(xboxCntrlr.getRawButton(8)){
+    		halfSpeed = !halfSpeed;
+    	}
+    	if(halfSpeed == false){
+    		motorX = controlX;
+    	    motorY = controlY;
+    	    motor2X = control2X;
+    	    motor2Y = control2Y;
+    	}
+    	if(halfSpeed){
+    		motorX = 0.5 * controlX;
+    	    motorY = 0.5 * controlY;
+    	    motor2X = 0.5 * control2X;
+    	    motor2Y = 0.5 * control2Y;
+    	}
+       
    }
    
     public void doorControl(double control3Y, double control4Y) {
