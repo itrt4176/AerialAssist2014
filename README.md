@@ -1,8 +1,6 @@
 # AerialAssist2014
-Source code from the 2014 Robot. 
+Source code from the Iron Tiger's 2014 Robot, The Iron Curtain.
 
-Master branch currently has a cleaned up version of the code in production.
+The Iron Curtain had two doors which slid open left and right to defend the low goals, and one arm which extended forward at angle to block anyone shooting up at the high goal.
 
-Feel free to checkout the code, create new branches, and experiment.
-
-***DO NOT MERGE TO MASTER BRANCH***
+This code is no longer being maintained and is released under GPL v2.0
